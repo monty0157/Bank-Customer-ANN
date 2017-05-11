@@ -36,5 +36,5 @@ def data_preprocessing():
     X_train = sc.fit_transform(X_train)
     X_test = sc.transform(X_test)
     
-    return X_train, X_test, X, y, y_train, y_test
+    return X_train, X_test, X, y, y_train, y_test, sc
 
