@@ -32,6 +32,6 @@ from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, test_accuracy)
 
 #TESTING ON SPECIFIC CUSTOMER, DATA STRUCTURE: [germany, spain, credit_score, gender, age, tenure, balance, products, credit_card, active_member, salary]
-customer_data = np.asarray([0, 0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]).reshape(1,11)
+customer_data = np.asarray([[0, 0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]])
 feature_scale_data = sc.transform(customer_data)
 customer_leaves = model.predict(feature_scale_data)
