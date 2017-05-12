@@ -47,6 +47,7 @@ parameters = {
 grid_search = GridSearchCV(estimator = grid_search, param_grid = parameters, scoring = 'accuracy', cv = 10)
 grid_search = grid_search.fit(X_train, y_train)
 
+#OPTIMAL PARAMETERS ARE: {'batch_size': 25, 'epochs': 100, 'optimizer': 'rmsprop', 'units': 50} 
 best_parameters = grid_search.best_params_
 best_accuracy = grid_search.best_score_
 print(best_parameters, best_accuracy)
