@@ -10,7 +10,7 @@ X_train, X_test, X, y, y_train, y_test, sc = data_preprocessing()
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 
-def build_model(optimizer = 'adam', units = 6):
+def build_model(optimizer = 'rmsprop', units = 50):
     model = Sequential()
 
     #TWO HIDDEN LAYERS AND OUTPUT LAYER WITH DROPOUT
@@ -29,12 +29,10 @@ def build_model(optimizer = 'adam', units = 6):
 from keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import cross_val_score
 
-model = KerasClassifier(build_fn = build_model, batch_size = 10, epochs = 1)
+model = KerasClassifier(build_fn = build_model, batch_size = 25, epochs = 500)
 accuracies = cross_val_score(estimator = model, X = X_train, y = y_train, cv = 10, n_jobs = 1)
 mean = accuracies.mean()
 variance = accuracies.std()
-
-build_model().fit(X_train, y_train)
 
 #GRIDSEARCH
 from sklearn.model_selection import GridSearchCV
