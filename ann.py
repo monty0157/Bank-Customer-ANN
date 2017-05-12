@@ -25,14 +25,16 @@ def build_model(optimizer = 'adam', units = 6):
 
     return model
 
-'''#DEPLOY ANN ON TRAINING SET WITH K-CROSS-VALIDATION
+#DEPLOY ANN ON TRAINING SET WITH K-CROSS-VALIDATION
 from keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import cross_val_score
 
 model = KerasClassifier(build_fn = build_model, batch_size = 10, epochs = 1)
 accuracies = cross_val_score(estimator = model, X = X_train, y = y_train, cv = 10, n_jobs = 1)
 mean = accuracies.mean()
-variance = accuracies.std()'''
+variance = accuracies.std()
+
+build_model().fit(X_train, y_train)
 
 #GRIDSEARCH
 from sklearn.model_selection import GridSearchCV
@@ -52,15 +54,13 @@ best_accuracy = grid_search.best_score_
 print(best_parameters, best_accuracy)
 print(best_parameters, 'Accuracy:', best_accuracy)
 
-'''##TEST ACCURACY
-test_accuracy = model.predict(X_test)
-test_accuracy = (test_accuracy > 0.5)
+##TEST ACCURACY
+test_accuracy = cross_val_score(estimator = model, X = X_test, y = y_test, cv = 10, n_jobs = 1)
+test_mean = test_accuracy.mean()
+test_variance = test_accuracy.std()
 
-#CONFUSION MATRIX
-from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(y_test, test_accuracy)
 
 #TESTING ON SPECIFIC CUSTOMER, DATA STRUCTURE: [germany, spain, credit_score, gender, age, tenure, balance, products, credit_card, active_member, salary]
 customer_data = np.asarray([[0, 0, 600, 1, 40, 3, 60000, 2, 1, 1, 50000]])
 feature_scale_data = sc.transform(customer_data)
-customer_leaves = model.predict(feature_scale_data)'''
+customer_leaves = model.predict(feature_scale_data)
